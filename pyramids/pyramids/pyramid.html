@@ -1,0 +1,1595 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <link href='http://fonts.googleapis.com/css?family=Open+Sans:400,300,600|Open+Sans+Condensed:300' rel='stylesheet' type='text/css'>
+    <title></title>
+
+    <meta name="description" content="">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, minimum-scale=1, maximum-scale=1, user-scalable=no" />
+    <meta http-equiv="content-type" content="text/html; charset=utf-8" />
+
+   <!-- <link rel="stylesheet" href="../css/bootstrap.min.css" />-->
+    <link rel="stylesheet" href="../css/style-chosen.css">
+    <link rel="stylesheet" href="../css/jquery.ui.labeledslider.css">
+    <link rel="stylesheet" href="../css/jquery-ui-1.10.4.custom.min.css">
+    <link rel="stylesheet" href="../css/styles.css">
+    <link rel="stylesheet" href="../css/bootstrap-toggle.css">
+
+    <script type="text/javascript" src="../lib/d3.v3.min.js" ></script>
+    <script type="text/javascript" src="../lib/jquery-1.11.3.js"></script>
+   	<script type="text/javascript" src="../lib/jquery-ui-1.9.2.custom.min.js"></script>
+      
+    <script type="text/javascript" src="../lib/modernizr.svg.min.js" ></script>
+    <script type="text/javascript" src="../lib/chosen.jquery.js"></script>
+ 	<script type="text/javascript" src="../lib/bootstrap.min.js"></script>
+    <script type="text/javascript" src="../lib/pym.js" ></script>
+    <script type="text/javascript" src="../lib/jquery.ui.labeledslider.js"></script>
+    <script type="text/javascript" src="../lib/bootstrap-toggle.js"></script>
+ 	<script type="text/javascript" src="../lib/jquery.ui.touch-punch.min.js"></script> 
+    <style type="text/css">
+   
+
+#graphic{
+	
+}
+
+.space{padding-top:5px;}
+
+.selected{
+	fill:#444444;
+	fill-opacity:0.3	
+}
+		
+.unselected	{
+	fill-opacity:0
+}
+
+#sel{
+	 border:1px solid #D0D0D0;
+	
+}
+
+/*#playPauseBtn{
+	width:60px;
+	height:60px;
+	background:transparent url('../images/playBtn.png') center top no-repeat;
+	opacity:0.7;
+	cursor:pointer;
+}
+
+#playPauseBtn:hover{
+	opacity:0.9;
+}*/
+
+
+
+
+
+.txtTotals{
+	font-size:15px;
+	
+}
+
+
+
+#MFbars rect{
+	fill:#029dd1;
+	opacity:0.8;	
+}
+
+
+.ageRow, .totalRow{
+	height: 25px;
+	font-size:13px;
+}
+
+#infoValues span{
+	opacity:0;
+}
+
+/*#infoValuesM, #infoPercentM, #infoValuesF, #infoPercentF, #EstinfoValuesM, #EstinfoPercentM, #EstinfoValuesF, #EstinfoPercentF{
+	font-size:13px;
+}*/
+
+
+#vizCanvas{
+
+}
+
+
+.domain{
+	stroke:#B1B1B1;
+	stroke-width:1px;
+	fill:none;
+}
+
+
+
+.horizontal .ui-slider-labels{
+	top:0.1em;
+}
+
+
+
+#graphContent text{
+	font-weight:400;
+	font-size:13px;
+}
+
+
+        #panel{
+        	fill:white;
+        } 
+		
+		.percent{padding-right:5px;}
+		
+		.col-xs-1, .col-sm-1, .col-md-1, .col-lg-1, .col-xs-2, .col-sm-2, .col-md-2, .col-lg-2, .col-xs-3, .col-sm-3, .col-md-3, .col-lg-3, .col-xs-4, .col-sm-4, .col-md-4, .col-lg-4, .col-xs-5, .col-sm-5, .col-md-5, .col-lg-5, .col-xs-6, .col-sm-6, .col-md-6, .col-lg-6, .col-xs-7, .col-sm-7, .col-md-7, .col-lg-7, .col-xs-8, .col-sm-8, .col-md-8, .col-lg-8, .col-xs-9, .col-sm-9, .col-md-9, .col-lg-9, .col-xs-10, .col-sm-10, .col-md-10, .col-lg-10, .col-xs-11, .col-sm-11, .col-md-11, .col-lg-11, .col-xs-12, .col-sm-12, .col-md-12, .col-lg-12 {
+    padding-left: 0px;
+    padding-right: 0px;
+}
+#barChart{
+	padding-left:0px;
+	padding-right:0px;
+}
+
+
+#MFbars, #EstMFbars{
+	height:40px;
+	padding:5px;
+}
+
+#note{
+	font-size:13px;
+	font-weight:300;
+}
+#controls1{
+	padding-top:15px;
+}
+
+#controls2{
+	padding-bottom:15px;
+	padding-top:10px;
+}
+
+.tick line{
+	stroke:#b1b1b1;
+}
+
+
+
+.male, .female{
+	font-weight: 500;
+    margin-bottom: -20px;
+    padding-top: 11px;
+}
+
+
+.numbersOff{
+	background:#e0e0e0;
+	border:2px solid white;
+}
+
+.numbersEst{
+	background:#c4e3ed;
+	border:2px solid white;
+}
+
+.numbersdiff{
+	background:#FFFFFF;
+	border:2px solid white;
+}
+
+.line{
+	height:1px;
+	border-bottom:1px solid #e7e7e7;
+	margin-bottom:20px;
+}
+
+.textContainer{
+	line-height:15px;
+	padding-top:7px;
+}
+
+#combinedPer, #EstcombinedPer{
+	font-size:12px;
+}
+
+.total {
+	max-width:944px;
+	margin: 0 auto;
+}
+
+    </style>
+</head>
+<body>
+    <div class="total">
+	<div class="container-fluid">
+		<div class="allContent">
+	        
+	        <div class="row">
+	        	<div class="col-sm-7 col-xs-12" id="pyramid">
+                	<div class="row">
+                   		<div id="dropdown"></div>	
+                    </div>
+                    <div class="row" id="controls1">
+                        <div id="radioBtns">
+                            <label class="radio-inline"><input type="radio" name="optradio" id= "radio2011" value="2011">2011</label>
+                            <label class="radio-inline"><input type="radio" name="optradio" id= "radio2016"value="2016">2016</label>
+                            
+                        </div>	
+                    </div><!--end controls1-->
+                    <div class="row">
+                    	<div class="col-sm-6 col-xs-6 text-center sexes"><div class="male">Men</div></div>
+                        <div class="col-sm-6 col-xs-6 text-center sexes"><div class="female">Women</div></div>
+                    </div>
+                	<div class="" id="graphic"></div>
+                </div><!--end pyramid-->
+                <div class="col-xs-12 col-sm-5" id="figures">
+                    <div class="row" id="controls2">
+                        <div class="col-sm-offset-5 col-xs-offset-5">
+                            <!--<input type="checkbox" id="outlinesToggle">
+                            <input type="checkbox" id="dimensionsToggle">-->
+                            <button type="button" id="clearBtn" class="btn btn-default btn-xs" disabled="disabled">Clear selection</button>
+                         </div>
+                    </div>
+                    <div class="row">
+                    	<div class="col-sm-offset-4 col-sm-4  col-xs-offset-4 col-xs-4 text-center" id="svgElementMale"></div>
+                        <div class="col-sm-4 col-xs-4 text-center" id="svgElementFemale"></div>
+                    </div>
+                    <div class="row ageRow text-center">
+                        <div class="col-sm-offset-4 col-sm-8 col-xs-offset-4 col-xs-8 " id="age"></div>
+                    </div>
+                    <div class="row">
+                        <div class="col-sm-4 col-xs-4 text-right">Official totals</div>
+                        <div class="col-sm-4 col-xs-4 text-center numbersOff" id="infoValuesM"></div>
+                        <div class="col-sm-4 col-xs-4 text-center numbersOff" id="infoValuesF"></div>
+                    </div> 
+                    <div class="row">
+                     	<div class="col-sm-4 col-xs-4 text-right">SPD V2.0 totals</div>
+                        <div class="col-sm-4 col-xs-4 text-center numbersEst" id="EstinfoValuesM"></div>
+                        <div class="col-sm-4 col-xs-4 text-center numbersEst" id="EstinfoValuesF"></div>
+                    </div>    
+                	<div class="row">
+                    	<div class="col-sm-4 col-xs-4 text-right">% difference</div>
+                        <div class="col-sm-4 col-xs-4 text-center percent" id="diffM"></div>
+                        <div class="col-sm-4 col-xs-4 text-center percent" id="diffF"></div>
+                    </div>
+                    <div class="row">
+                    	<div class="col-sm-4 col-xs-4 text-right textContainer"> % of official population</div>
+                        <div class="col-sm-4 col-xs-4" id="barChart"></div>
+                    </div>
+                    <div class="row" >
+                    	<div class="col-sm-4 col-xs-4 text-right textContainer">% of SPD V2.0 population</div>
+                        <div class="col-sm-4 col-xs-4" id="EstbarChart"></div>
+                    </div>
+                    <div class="row totalRow">
+                        <div class="col-sm-9 col-xs-9 text-center" id="combinedTotText"></div>	
+                        <div class="col-sm-3 col-xs-3 text-center numbersOff" id="combinedTotal"></div>	
+                    </div>
+                    <div class="row totalRow">
+                        <div class="col-sm-12 col-xs-12 text-center" id="combinedPer"></div>	
+                    </div>
+                    <div class="row totalRow">
+                    	<div class="col-sm-9 col-xs-9 text-center" id="EstcombinedTotText"></div>	
+                        <div class="col-sm-3 col-xs-3 text-center numbersEst" id="EstcombinedTotal"></div>	
+                    </div>
+                    <div class="row totalRow">
+                        <div class="col-sm-12 col-xs-12 text-center" id="EstcombinedPer"></div>	           
+                    </div>
+                    <div class="line"></div>
+                    <div class="row">
+                    		<div class="space col-sm-7 col-xs-8">Official total population</div>
+                            <div class="col-sm-offset-0 col-sm-5 col-xs-4 text-center numbersOff" id="txtTotals"></div>
+                    </div>
+					<div class="row">
+                    		<div class="space col-sm-7 col-xs-8">SPD V2.0 total population</div>
+                            <div class="col-sm-offset-0 col-sm-5 col-xs-4 text-center numbersEst" id="EsttxtTotals"></div>
+                    </div>
+                    <div class="row">
+                    		<div class="space col-sm-7 col-xs-8">% difference</div>
+                            <div class="col-sm-offset-0 col-sm-5 col-xs-4 text-center numbersdiff" id="diffTotals"></div>
+                    </div>
+            	</div><!--end figures-->
+            </div><!--end row-->
+            
+		     	     <div class="row">
+            			<div class="col-md-12 col-sm-12 col-xs-12" id="footer"></div> 
+            		</div>
+
+		</div><!--end all content-->
+	</div><!--end container fluid-->
+    </div><!--end total-->	    
+
+
+
+    <script>
+
+    	//globals
+		var dvc ={};//global namespace
+
+					margin_top = 30, 
+					margin_left = 20, 
+					margin_bottom = 80, 
+					margin_right = margin_left,
+					dvc.Ratio_sm = [20,18],
+            		dvc.Ratio_md = [20,19],
+            		dvc.Ratio_lg = [20,19],
+					dvc.area = "hartlepool.json",
+
+					dvc.cenGap=14;//central gap between 2 histograms in a pyramid
+					dvc.chartColors=["#b0bdc4", "#029dd1"];
+					
+					//selection settings
+					dvc.selMade=false;//is there a selection
+					dvc.selProc=false;//is the selection process for aggregates underway?
+					//dvc.selStart;
+					//dvc.selEnd;
+					
+					//animation settings
+					dvc.timeLength;
+					dvc.outlineIndex=0;
+					dvc.timeIndex=1;
+					dvc.bAnimate=false;
+					dvc.bLoop=true;
+					dvc.varDimension="0"
+					//round to nearest 100
+					dvc.roundTo=1;
+
+
+
+		var graphic = $('#graphic');
+		var keypoints = $('#keypoints');
+		var footer = $("#footer");
+		var pymChild = null;
+		var allContent = $('.allContent');
+
+		function drawGraphic(width) {
+		  dvc.threshold_sm = 768; 
+		  dvc.outlineIndex
+		  
+//		  	//set variables for chart dimensions dependent on width of #graphic
+	if (graphic.width() < dvc.threshold_sm) {        	
+		           	var width = graphic.width();
+		            var height = Math.ceil((width * dvc.Ratio_sm[1]) / dvc.Ratio_sm[0]) ;
+//		    } else if (graphic.width() < dvc.threshold_md){
+//		        	var width = graphic.width() ;
+//		            var height = Math.ceil((width * dvc.Ratio_md[1]) / dvc.Ratio_md[0]) ;
+		  	} else {
+		        	var width = graphic.width() ;
+		            var height = Math.ceil((width * dvc.Ratio_lg[1]) / dvc.Ratio_lg[0]) ;
+			}
+console.log(allContent.width())
+	if (allContent.width() < 738) {
+		d3.select("#svgElementMale").text("Men")
+		d3.select("#svgElementFemale").text("Women")
+	} else {
+		d3.xml("man.svg", "image/svg+xml", function(xml) {
+		  document.getElementById("svgElementMale").appendChild(xml.documentElement);
+		});
+		d3.xml("woman.svg", "image/svg+xml", function(xml) {
+		  document.getElementById("svgElementFemale").appendChild(xml.documentElement);
+		});
+	}
+
+
+					dvc.panelWidth=width-margin_left-margin_right;//width of a single chart panel
+					dvc.panelHeight=height - margin_top - margin_bottom;
+			
+		    // clear out existing graphics
+		    graphic.empty();
+			keypoints.empty();
+			footer.empty();
+			$("#dropdown").empty();
+			
+			//create first simple scale
+			dvc.xScale=d3.scale.linear()
+				.domain([0,dvc.maxdvc])
+				.range([0,(dvc.panelWidth/2)-dvc.cenGap])
+				.nice();
+						
+			//a scale object to define the inverted axis of the left hand side of pyramid [higher values go to left of chart]
+			dvc.xScale2=d3.scale.linear()
+				.domain([0,dvc.maxdvc])
+				.range([(dvc.panelWidth/2)-dvc.cenGap,0])
+				.nice();
+
+			//create an ordinal scale for the y axis, based on y axis definitions in config file
+			dvc.yScale=d3.scale.ordinal()
+				.domain(dvc.settings.yDimension.index)
+				.rangeBands([dvc.panelHeight,0],0);
+
+		    //create svg for chart
+		    var svg = d3.select('#graphic').append('svg')
+		    			.attr("id","vizCanvas")
+				        .attr("width", width)
+				        .attr("height", height)
+
+			//create basic svg groups in correct drawing order
+			d3.select("#vizCanvas").append("g").attr("id","graphContent")
+						.append("g")
+						.attr("id","middleAxis");
+
+			d3.select("#vizCanvas").append("g")
+						.attr("id","intBars")
+						.attr("fill-opacity",0.1)
+	
+			//function calls to create app UI and draw IntBars
+			drawUI();
+			drawIntBars();
+			//now we have both datasets loaded, we can determine the max dvc value
+			determineMax();
+			//and finally we can draw chart using the correct scaling information
+			drawChart();
+			setTotals();
+					
+			//use pym to calculate chart dimensions	
+		    if (pymChild) {
+		        pymChild.sendHeight();
+		    }
+			 
+			//create link to source				
+			d3.select("#footer").append("p")
+				.text("Source: ")
+				.append("a")
+				.attr("href","https://www.ons.gov.uk/census/censustransformationprogramme/administrativedatacensusproject/administrativedatacensusresearchoutputs/sizeofthepopulation")
+				.attr("target", "_blank")
+				.text("Administrative Data Census: Research Outputs, 2017");
+
+		} //end drawGraphic
+
+		function determineMax() {
+			dvc.maxdvc=dvc.data.ons.concept.max[dvc.varDimension];
+		 } //end determineMax
+
+		 function setTotals()
+		 {	
+			var myFormat=d3.format("0,000");
+			var myPercent = d3.format(".1%");
+			var myTotal=myFormat(Math.round(((dvc.data.ons.sums.series2[dvc.timeIndex])+(dvc.data.ons.sums.series1[dvc.timeIndex]))/dvc.roundTo)*dvc.roundTo);
+			var myTotalM=myFormat(Math.round((dvc.data.ons.sums.series2[dvc.timeIndex])/dvc.roundTo)*dvc.roundTo);
+			var myTotalF=myFormat(Math.round((dvc.data.ons.sums.series1[dvc.timeIndex])/dvc.roundTo)*dvc.roundTo);
+						
+			var EstmyTotal=myFormat(Math.round(((dvc.data.ons.sums.series2[dvc.outlineIndex])+(dvc.data.ons.sums.series1[dvc.outlineIndex]))/dvc.roundTo)*dvc.roundTo);
+			var EstmyTotalM=myFormat(Math.round((dvc.data.ons.sums.series2[dvc.outlineIndex])/dvc.roundTo)*dvc.roundTo);
+			var EstmyTotalF=myFormat(Math.round((dvc.data.ons.sums.series1[dvc.outlineIndex])/dvc.roundTo)*dvc.roundTo);
+
+			var myTotal1 = ((dvc.data.ons.sums.series2[dvc.timeIndex])+(dvc.data.ons.sums.series1[dvc.timeIndex]));
+			var EstmyTotal1=((dvc.data.ons.sums.series2[dvc.outlineIndex])+(dvc.data.ons.sums.series1[dvc.outlineIndex]));
+			var totaldiff = myPercent((EstmyTotal1-myTotal1)/myTotal1);
+			
+			var myDiffM = (dvc.data.ons.sums.series2[dvc.outlineIndex]-dvc.data.ons.sums.series1[dvc.timeIndex])/dvc.data.ons.sums.series2[dvc.outlineIndex]
+			var myDiffF = (dvc.data.ons.sums.series1[dvc.outlineIndex]-dvc.data.ons.sums.series1[dvc.timeIndex])/dvc.data.ons.sums.series1[dvc.outlineIndex]
+			
+			var myPerM=(dvc.data.ons.sums.series2[dvc.timeIndex]/((dvc.data.ons.sums.series2[dvc.timeIndex])+(dvc.data.ons.sums.series1[dvc.timeIndex])));
+			var myPerF=(dvc.data.ons.sums.series1[dvc.timeIndex]/((dvc.data.ons.sums.series1[dvc.timeIndex])+(dvc.data.ons.sums.series1[dvc.timeIndex])));
+			
+			var EstmyPerM=(dvc.data.ons.sums.series2[dvc.outlineIndex]/((dvc.data.ons.sums.series2[dvc.outlineIndex])+(dvc.data.ons.sums.series1[dvc.outlineIndex])));
+			var EstmyPerF=(dvc.data.ons.sums.series1[dvc.outlineIndex]/((dvc.data.ons.sums.series2[dvc.outlineIndex])+(dvc.data.ons.sums.series1[dvc.outlineIndex])));
+						
+			var myYear=dvc.data.ons.time.index[dvc.timeIndex];
+			var EstmyYear=dvc.data.ons.time.index[dvc.outlineIndex];
+			
+				$("#txtTotals").html("<span class='txtTotals'>"+myTotal+"</span>"); 
+				$("#EsttxtTotals").html("<span class='txtTotals'>"+EstmyTotal+"</span>");
+				$("#diffTotals").html("<span class='txtTotals'>"+totaldiff+"</span>");  
+			width = graphic.width()*0.45;
+			d3.select('#MFbars').remove();
+			d3.select('#EstMFbars').remove();
+			
+			d3.select('#barChart').append('svg')
+		    			.attr("id","MFbars")
+				        .attr("width", width)
+			
+			d3.select('#EstbarChart').append('svg')
+		    			.attr("id","EstMFbars")
+				        .attr("width", width)
+			
+		
+			var dataArray=[ myPerM*100 , myPerF*100 ];
+			var dataEstArray=[ EstmyPerM*100 , EstmyPerF*100 ];
+		
+			var EstdataArray=[ myPerM*100 , myPerF*100 ];
+			var EstdataEstArray=[ EstmyPerM*100 , EstmyPerF*100 ];
+
+		
+			var MFscale = d3.scale.linear().domain([0,100]).range([0,width])
+			var EstMFscale = d3.scale.linear().domain([0,100]).range([0,width])
+			
+			d3.select("#MFbars").append("g").selectAll("rect")
+					.data(dataArray)
+					.enter()
+					.append("rect")
+					.attr("id", function(d,i){
+								return "bar"+i;
+						})
+					.attr("x",function(d,i){if(i!=0){
+							return MFscale(dataArray[0]);
+						} else {
+							return 0;	
+						}
+					})
+					.attr("y",0)
+					.attr("height","100%")
+					.style("fill", dvc.chartColors[0])
+					.style("fill-opacity", 0.5)
+					.style("stroke", dvc.chartColors[0])
+					
+			d3.select("#MFbars").select("g").selectAll("text")
+					.data(dataArray)
+					.enter()
+					.append("text")
+					.attr("id",function(d,i){if(i!=0){
+							return "infoPercentM";
+						} else {
+							return "infoPercentF";	
+						}
+					})
+					.attr("x", function(d,i){if(i!=0){
+							return "2%";
+						} else {
+							return "98%";	
+						}
+					})
+					.attr("text-anchor", function(d,i){if(i!=0){
+							return "start";
+						} else {
+							return "end";	
+						}
+					})
+					.attr("y", "60%")
+					.text(function(d,i){if(i!=0){
+							return "one";
+						} else {
+							return "two";	
+						}
+					})
+					
+			d3.select("#EstMFbars").append("g").selectAll("rect")
+					.data(EstdataArray)
+					.enter()
+					.append("rect")
+					.attr("id", function(d,i){
+								return "Estbar"+i;
+						})
+					.attr("x",function(d,i){if(i!=0){
+							return EstMFscale(EstdataArray[0]);
+						} else {
+							return 0;	
+						}
+					})
+					.attr("y",0)
+					.attr("height","100%")
+					.style("fill", dvc.chartColors[1])
+					.style("fill-opacity", 0.5)
+					.style("stroke", dvc.chartColors[1])
+					
+			d3.select("#EstMFbars").select("g").selectAll("text")
+					.data(dataArray)
+					.enter()
+					.append("text")
+					.attr("id",function(d,i){if(i!=0){
+							return "EstinfoPercentM";
+						} else {
+							return "EstinfoPercentF";	
+						}
+					})
+					.attr("x", function(d,i){if(i!=0){
+							return "2%";
+						} else {
+							return "98%";	
+						}
+					})
+					.attr("text-anchor", function(d,i){if(i!=0){
+							return "start";
+						} else {
+							return "end";	
+						}
+					})
+					.attr("y", "60%")
+					.text(function(d,i){if(i!=0){
+						console.log(d,i);
+							return "three";
+						} else {
+							return "four";	
+						}
+					})
+								
+			d3.select("#age").text("Age 0 to 90+");
+			
+			
+			var infoPercent =d3.select("#infoPercent")
+			var EstinfoPercent =d3.select("#EstinfoPercent")
+			
+			calcValues(dvc.selStart, dvc.selEnd);
+			
+			if(dvc.selStart!=null & dvc.selEnd!=null){
+				$('#clearBtn').prop('disabled', false);	
+			
+				var loopSt=Math.min(dvc.selStart,dvc.selEnd);
+				var loopEnd=Math.max(dvc.selStart,dvc.selEnd);
+				
+				d3.select("#intBars").selectAll("rect").filter(function(d, i) {
+						return i>=loopSt&&i<=loopEnd;	
+				})
+				.attr("class","selected");
+				
+			} else {
+				dvc.selMade=false;	
+			}
+		 } // end setTotals
+
+		function redrawCharts() {
+			 	
+					removeChart();					
+					drawChart();
+					d3.select("#MFbars").empty();
+					d3.select("#EstMFbars").empty();
+					
+					setTotals();
+					calcValues(dvc.selStart,dvc.selEnd)
+					
+							if(dvc.maxdvc>= 10000){
+								d3.select("#xLabel").select("text").text("Population")
+							} else {
+								d3.select("#xLabel").select("text").text("Population")
+							}
+				updateHash();
+		} //end redrawCharts
+		 
+		function loadData(file)
+		 { 
+			 
+			d3.json(file, function(json)	{
+				dvc.data=json;
+				determineMax();
+				redrawCharts();
+				updateHash();
+			});
+		 } //end loadData
+
+		 function drawIntBars()
+		 {
+			 //create the interaction layer - bars that straddle the full width of the visualisation
+			 d3.select("#intBars")
+				.selectAll("rect")
+				.data(dvc.settings.yDimension.index)
+				.enter()
+				.append("rect")
+				.attr("id",function(d,i)
+					{
+						return "intbar"+d[0];
+					})
+				.attr("y",function(d,i)	{
+						return margin_top+dvc.yScale(i);
+					})
+				.attr("width", dvc.panelWidth)
+				.attr("height", dvc.yScale.rangeBand())
+				.attr("x",function(){if(graphic.width() < dvc.threshold_sm){
+								return margin_left;
+							} else {
+								return margin_left;
+							}
+				})
+				.attr("class","unselected")
+				.attr("data-nm",function(d,i)	{
+					return (i);
+				});
+		 
+		 		if (Modernizr.touch){
+				
+					dvc.touchTimer;//measures for a long touch
+					dvc.touchSel;//actively touched bar
+					d3.select("#intBars")
+					.attr("ontouchstart","tellMe(evt)")
+					.attr("ontouchmove","tellMe(evt)")
+					.attr("ontouchend","tellMe(evt)");
+				} else {
+					
+					d3.select("#intBars")
+					.attr("onmouseover","tellMe(evt)")
+					.attr("onmouseout","tellMe(evt)")
+					.attr("onmousedown","tellMe(evt)")
+					.attr("onmouseup","tellMe(evt)");
+				}
+					 //console.log("end drawIntBars()")
+		 } //end drawIntBars
+		 
+		 function removeChart(chartIndex) {
+			chartTarget=document.getElementById("graph");
+			hostLayer=chartTarget.parentNode;
+			hostLayer.removeChild(chartTarget);
+		 } // end removeChart
+
+
+		 function drawChart() { 
+			//main graph group
+			d3.select("#graphContent").append("g")
+				.attr("id","graph")
+				
+			d3.select("#graph").append("g")
+				.attr("id","chartAxis");
+			
+			d3.select("#graph").append("g").attr("id","aniContainer").attr("transform","translate(0,0)");
+			
+			d3.select("#graph").append("g")
+							.attr("id", "xLabel")
+							.append("text")
+							.attr("x",dvc.panelWidth/2)
+							.attr("y",dvc.panelHeight+(margin_bottom*0.5))
+							.attr("text-anchor", "middle")
+							.text(function(d){
+										if(dvc.maxdvc>= 10000){
+											return "Population";
+										} else {
+											return "Population";
+										}
+								});
+							
+			d3.select("#graph").append("g")
+							.attr("id", "yLabel")
+							.append("text")
+							.attr("x",dvc.panelWidth/2)
+							.attr("y",-margin_top/2)							
+							.attr("text-anchor", "middle")
+							.text("Age");
+							
+			d3.select("#graph").append("g")
+							.attr("id", "outlinesText")
+							.append("text")
+							.attr("x",dvc.panelWidth/2)
+							.attr("y",dvc.panelHeight+(margin_bottom*0.75))
+							.attr("text-anchor", "middle")
+							.text("Blue outline shows SPD V2.0 estimates")
+			
+				
+			var chartData;
+			d3.select("#graph").attr("transform","translate("+margin_left+","+margin_top+")");
+			chartData=dvc.data;
+			dvc.maxValues=dvc.data.ons.concept.max[dvc.varDimension];
+			
+			//create first simple scale
+			dvc.xScale=d3.scale.linear()
+				.domain([0,dvc.maxdvc])
+				.range([0,(dvc.panelWidth/2)-dvc.cenGap])
+				.nice();
+						
+			//a scale object to define the inverted axis of the left hand side of pyramid [higher values go to left of chart]
+			dvc.xScale2=d3.scale.linear()
+				.domain([0,dvc.maxdvc])
+				.range([(dvc.panelWidth/2)-dvc.cenGap,0])
+				.nice();
+
+			//get to the first data value for series 1 and 2, needed for beginning outline drawing
+			var value1=chartData.ons.value[0][0][dvc.timeIndex][dvc.varDimension];
+			var value2=chartData.ons.value[1][0][dvc.timeIndex][dvc.varDimension];
+	
+			//starting points for outlines to the histograms
+			var pathData1="M "+((dvc.panelWidth/2)-dvc.cenGap)+" "+dvc.panelHeight+" L"+dvc.xScale2(value1)+" "+dvc.panelHeight+" ";
+			var pathData2="M "+((dvc.panelWidth/2)+dvc.cenGap)+" "+dvc.panelHeight+" L"+((dvc.panelWidth/2)+dvc.cenGap+dvc.xScale(value2))+" "+dvc.panelHeight+" ";
+			
+			//draw first series - typically male - create a group, create rectangles and update path data for outlines
+				d3.select("#aniContainer").append("g")
+					.attr("id","seriesA")
+					.selectAll("rect")
+					.data(chartData.ons.value[0])
+					.enter()
+					.append("rect")
+					.attr("class",function(d,i){
+							return "Mbar"+i;	
+					})
+					.attr("fill",dvc.chartColors[0])
+					.attr("fill-opacity",0.5)
+					.attr("width",function(d)	{
+						return (dvc.panelWidth/2-dvc.cenGap)-dvc.xScale2(d[dvc.outlineIndex][dvc.varDimension]);
+					})
+					.attr("height",dvc.yScale.rangeBand())
+					.attr("y",function(d,i)	{
+						pathData1=pathData1+"L "+(dvc.xScale2(d[dvc.timeIndex][dvc.varDimension]))+" "+dvc.yScale(i-1)+" L "+dvc.xScale2(d[dvc.timeIndex][dvc.varDimension])+" "+dvc.yScale(i);
+						return dvc.yScale(i);	
+					})
+					.attr("x", function(d)	{
+						return dvc.xScale2(d[dvc.outlineIndex][dvc.varDimension]);
+					});
+
+				//draw second series - typically female
+				d3.select("#aniContainer").append("g")
+					.attr("id","seriesB")
+					.selectAll("rect")
+					.data(chartData.ons.value[1])
+					.enter()
+					.append("rect")
+					.attr("class",function(d,i){
+							return "Fbar"+i;	
+					})
+					.attr("fill",dvc.chartColors[0])
+					.attr("fill-opacity",0.5)
+					.attr("width",function(d)	{
+						return dvc.xScale(d[dvc.outlineIndex][dvc.varDimension]);
+					})
+					.attr("height",dvc.yScale.rangeBand())
+					.attr("y",function(d,i)	{
+						pathData2=pathData2+"L "+((dvc.panelWidth/2)+dvc.cenGap+dvc.xScale(d[dvc.timeIndex][dvc.varDimension]))+" "+dvc.yScale(i-1)+" L "+((dvc.panelWidth/2)+dvc.cenGap+dvc.xScale(d[dvc.timeIndex][dvc.varDimension]))+" "+dvc.yScale(i);
+						return dvc.yScale(i);	
+					})
+					.attr("x", function(d)	{
+						return (dvc.panelWidth/2)+dvc.cenGap;
+					});
+					
+				//finish the path data for series 1 and 2
+				pathData1=pathData1+"L "+((dvc.panelWidth/2)-dvc.cenGap)+" 0";
+				//need to teak the 0 on the y here to use the yscale
+				pathData2=pathData2+"L "+((dvc.panelWidth/2)+dvc.cenGap)+" 0";
+				
+				d3.select("#aniContainer")
+				.append("g")
+					.attr("id","outlines")
+					.attr("transform", "translate(0,0)")
+					.append("path")
+						.attr("stroke",dvc.chartColors[1])
+						.attr("id","outlineA")
+						.attr("fill","none")
+						.attr("stroke-width","2px")
+						.attr("d",pathData1);
+				
+				d3.select("#outlines")
+				.append("path")
+					.attr("stroke",dvc.chartColors[1])
+					.attr("id","outlineB")
+					.attr("fill","none")
+					.attr("stroke-width","2px")
+					.attr("d",pathData2);	
+				
+				//draw and append the x axes
+				//left hand axis - the inverted one - note it calls xScale2
+				var xAxis1=d3.svg.axis()
+					.scale(dvc.xScale2)
+					.orient("bottom")
+					.ticks(3)
+					.tickFormat(function(d){
+								if(dvc.varDimension=="0"){
+									if(dvc.maxdvc>= 10000){
+										//var formatSIunits = d3.format("s");
+										return d/1000;
+									} else {
+										return d
+									}
+								} else {
+									return d;
+								}
+						});
+					
+				d3.select("#chartAxis").append("g")
+				.attr("class","axis")
+				.attr("id", "leftXaxis")
+				.attr("transform","translate(0,"+dvc.panelHeight+")")
+				.call(xAxis1);
+				
+				//right hand axis
+				var xAxis2=d3.svg.axis()
+					.scale(dvc.xScale)
+					.orient("bottom")
+					.ticks(3)
+					.tickFormat(function(d){
+								if(dvc.varDimension=="0"){
+									if(dvc.maxdvc>= 10000){
+										//var formatSIunits = d3.format("s");
+										return d/1000;
+									} else {
+										return d
+									}
+								} else {
+									return d;
+								}
+						});
+					
+				d3.select("#chartAxis").append("g")
+				.attr("class","axis")
+				.attr("id", "rightXaxis")
+				.attr("transform","translate("+(dvc.cenGap+(dvc.panelWidth/2))+","+dvc.panelHeight+")")
+				.call(xAxis2);
+				
+										
+				var xAxisMid1=d3.svg.axis()
+					.scale(dvc.xScale2)
+					.orient("bottom")
+					.ticks(2);
+					
+				var xAxisMid2=d3.svg.axis()
+					.scale(dvc.xScale)
+					.orient("bottom")
+					.ticks(2);	
+					
+			//draw the y axis ticks
+
+						d3.select("#chartAxis").append("g").attr("class","axis")
+										.selectAll("path")
+										.data(dvc.settings.yDimension.yLabels)
+										.enter()
+										.append("path")
+										.attr("d", function(d)	{
+											//while we're inside a pseudo-loop, can create the text labels too
+											d3.select("#chartAxis")
+													.append("text")
+													.attr("y",dvc.yScale(d))
+													.attr("x",dvc.panelWidth/2)
+													.attr("text-anchor","middle")
+													.attr("dy",10)
+													.text(d[1]);
+											return "M 0,"+dvc.yScale(d[0])+" L"+((dvc.panelWidth/2)-dvc.cenGap+3)+","+dvc.yScale(d[0])+" M "+((dvc.panelWidth/2)+dvc.cenGap-3)+","+dvc.yScale(d[0])+" L"+dvc.panelWidth+","+dvc.yScale(d[0]);
+					});    		  	
+		 } 
+		 //end drawChart
+
+		 function drawUI()
+		 {
+			 	 //console.log("start drawUI()")
+			 //if there's more than one variable, create a selection list to allow user to change variable
+			 if (dvc.settings.config.vars.length>2)
+			 {	
+			var dropdown = d3.select("#dropdown")
+			
+			dropdown.append("div").text("Choose an area")
+					
+			var optns =dropdown.append("div").attr("id","sel")
+					.append("select").attr("id","areaselect")
+					.attr("class","chosen-select");
+	
+							
+				optns.selectAll("p").data(dvc.settings.config.vars).enter().append("option")
+					.attr("value", function(d){ return d[0]}) /* Optional */
+					.attr("id", function(d,i){ return "opt_"+i}) /* Optional */
+					.attr("data-index", function(d,i){ return i}) 
+					.text(function(d){ return d[1]});
+				
+				$('#areaselect').chosen({width: "100%",allow_single_deselect: false}).on('change',function(d){
+						 dvc.area =this.value;
+						 loadData(dvc.selectedYear+"data/"+dvc.area);
+						 
+						 dvc.defaultSelections = document.getElementById('areaselect').selectedIndex
+						 
+						})
+			}
+			 
+			function updateUI(area){
+				 //console.log("start updateUI()")
+				var name = '#opt_'+dvc.defaultSelections;
+					 //console.log(name)
+				var newVal = d3.select(name).attr('value')
+					 console.log(newVal)
+				 $('#areaselect').val(newVal);
+				 $('#areaselect').trigger("chosen:updated");
+			}
+			updateUI(dvc.defaultSelections);
+			
+				document.getElementById('radio'+dvc.selectedYear).checked = true;
+					
+				$(".radio-inline").change(function(d){
+						
+						dvc.selectedYear=$(".radio-inline :radio:checked").attr('value')
+						loadData(dvc.selectedYear+"data/"+dvc.area);
+						updateHash();
+				})
+										
+				$( "#clearBtn" ).click(clearSel);
+				$( "#clearBtn" ).prop('disabled', true);
+				
+			 }//end if time series
+			 
+		 function tellMe(evt)
+		{
+			evt.preventDefault();//prevents  mobile browsers from pulling the screen while touching
+			var myobj = d3.select(evt.target);
+			
+			if (evt.type=="mouseover")
+			{
+				if (dvc.selMade)
+				{
+				//do nothing, selection already made	
+				}	else
+				{
+					if (dvc.selProc)//build aggregate selection
+					{
+						////console.log(dvc.selEnd);
+						dvc.selEnd=myobj.attr("data-nm");
+						makeAlpha();
+					}	else//just  single selection
+					{
+						myobj.attr("class","selected");
+						//$("#changeables0").text("dfgdfgdfg")
+						calcValues(myobj.attr("data-nm"));
+						////console.log(myobj.attr("data-nm"))
+					}
+				}
+			}
+			
+			if (evt.type=="mousedown")
+			{
+				if (dvc.selMade)
+				{
+				//do nothing, selection already made	
+				}	else//begin selection
+				{
+					dvc.selProc=true;
+					dvc.selStart=myobj.attr("data-nm");
+					dvc.selEnd=myobj.attr("data-nm");
+					makeAlpha();	
+				}
+			}//end mousedown
+			
+			if (evt.type=="mouseup")
+			{
+				if (dvc.selMade)
+				{
+					//do nothing, selection already made	
+				}	else
+				{
+					dvc.selMade=true;
+					dvc.selProc=false;
+					$( "#clearBtn" ).prop('disabled', false);
+					calcValues(dvc.selStart,dvc.selEnd);
+					updateHash();	
+				}
+			}//end mouseup
+			
+			if (evt.type=="mouseout")
+			{
+				if (dvc.selMade)
+				{
+					//do nothing, selection made
+				}	else
+				{
+					if (dvc.selProc==true)
+					{
+						////console.log('not doing anything, still selecting');
+					}	else
+					{
+					myobj.attr("class","unselected");
+					clearValues();
+					}
+				}
+			}//end mouseout
+			
+			
+			//touch events
+			if (evt.type=="touchstart")
+			{ 
+				if (dvc.selMade)
+				{
+					//do nothing, selection already made"
+				}	else
+				{
+					myobj.attr("class","selected");
+					////console.log('started touch on'+myobj.attr("data-nm"));
+					calcValues(myobj.attr("data-nm"));
+				}
+			}//end touchstart
+			
+			if (evt.type=="touchmove")
+			{
+				
+				if (dvc.selMade)
+				{
+					//do nothing, selection already made"
+				}	else
+				{
+					//find the object under the touchmove event
+					var touchX=evt.changedTouches[0].clientX;
+					var touchY=evt.changedTouches[0].clientY;
+					dvc.touchedElement=document.elementFromPoint(touchX,touchY);
+					//gets at the object underneath the current x,y of finger
+					var touchID=d3.select(dvc.touchedElement).attr("data-nm");
+					var tagname=dvc.touchedElement.tagName;
+						
+					//make sure we are interacting with an interaction bar...
+					if (tagname=="rect")
+					{
+						//don't start timer....we are building a selection....
+						if (dvc.selProc==true)
+						{
+							dvc.selEnd=touchID;
+							////console.log('building a selection to include '+touchID);
+							makeAlpha();
+						}	else//start timer....
+						{
+							////console.log('drifting over '+touchID);
+							clearAlpha();
+							clearTimeout(dvc.touchTimer);
+							dvc.touchSel=touchID;
+							dvc.touchTimer=setTimeout(aggSel,500);		
+							d3.select(dvc.touchedElement).attr("class","selected");
+							calcValues(touchID);
+						}
+					}//end interact with rect	
+				}
+			}//end touchmove
+			
+			if (evt.type=="touchend")
+			{
+				if (dvc.selProc==true)
+				{
+					//complete the selection...	
+					dvc.selMade=true;
+					$("#clearBtn" ).prop('disabled', false);
+					dvc.selProc=false;
+					calcValues(dvc.selStart,dvc.selEnd);
+				}	else	//just a single mouseover selection being made...
+				{
+					dvc.touchSel=null;
+					clearAlpha();
+					clearTimeout(dvc.touchTimer);
+				}
+			updateHash();		
+			}
+		}//end tellMe
+		
+		//trigger to build aggregate selection
+		function aggSel()
+		{
+			dvc.selStart=dvc.touchSel;
+			dvc.selEnd=dvc.touchSel;
+			if (dvc.touchedElement.tagName=="rect")
+			{
+				d3.select(dvc.touchedElement).attr("class","highlighted");
+			}
+			dvc.selProc=true;
+		}
+		
+		function makeAlpha()
+		{	d3.select("#bar0").attr("width", "0px");
+			d3.select("#bar1").attr("width", "0px");
+			d3.select("#Estbar0").attr("width", "0px");
+			d3.select("#Estbar1").attr("width", "0px");
+			
+			
+			var loopSt=Math.min(dvc.selStart,dvc.selEnd);
+			var loopEnd=Math.max(dvc.selStart,dvc.selEnd);
+			////console.log(loopSt);
+			$('#age').text("building a selection..."+dvc.data.ons.dimension.index[loopSt]+":"+dvc.data.ons.dimension.index[loopEnd]);
+			
+			//set all int bars to be unselected
+			clearAlpha();
+			//then filter the bars based on start/end points then change css
+			d3.select("#intBars").selectAll("rect").filter(function(d, i) {
+					return i>=loopSt&&i<=loopEnd;	
+			})
+			.attr("class","selected");
+		}
+		
+		function clearSel()
+		{	
+				clearAlpha();
+				clearValues();
+				dvc.selStart=null;
+				dvc.selEnd=null;
+				dvc.selMade=false;
+				dvc.selProc=false;
+				$( "#clearBtn" ).prop('disabled', true);
+				updateHash();	
+			
+		}
+		
+		function clearAlpha()
+		{
+			d3.select("#intBars").selectAll("rect")
+				.attr("class","unselected");
+		}
+		
+		//age group selection 
+		function calcValues(int1,int2)
+		{ 	
+		if (typeof int2 === 'undefined') { int2 = int1; }
+			var mystring;
+			if (int1!=int2){ 
+				//multi selection	
+				var loopSt=Math.min(dvc.selStart,dvc.selEnd);
+				var loopEnd=Math.max(dvc.selStart,dvc.selEnd);
+				
+				//initialise totals
+				var totalM=0;
+				var totalF=0;
+				var total=0;
+				
+				var EsttotalM=0;
+				var EsttotalF=0;
+				var Esttotal=0;
+						
+				//seriesM, get series for selected bars
+				var selectionM = $(dvc.data.ons.value[0]).filter(function (index){
+					
+					return index>=loopSt&&index<=loopEnd;
+				});	
+				
+			
+				//calculate total for series M for current timeindex
+				$(selectionM).each(function ()	{
+					totalM=totalM+this[dvc.outlineIndex][0];
+					console.log(totalM);
+				});
+				
+				//seriesF, get series for selected bars
+				var selectionF = $(dvc.data.ons.value[1]).filter(function (index){
+					return index>=loopSt&&index<=loopEnd;	
+				});
+				
+				//calculate total for series F for current timeindex
+				$(selectionF).each(function ()	{
+					totalF=totalF+this[dvc.outlineIndex][0];
+					
+				});
+				
+				//seriesM, get series for selected bars
+				var EstselectionM = $(dvc.data.ons.value[0]).filter(function (index){
+					
+					return index>=loopSt&&index<=loopEnd;	
+				});	
+				
+				//calculate total for series M for current timeindex
+				$(EstselectionM).each(function ()	{
+					EsttotalM=EsttotalM+this[dvc.timeIndex][0];
+					console.log(EsttotalM);
+				});
+				
+				//seriesF, get series for selected bars
+				var EstselectionF = $(dvc.data.ons.value[1]).filter(function (index){
+					return index>=loopSt&&index<=loopEnd;	
+				});
+				
+				//calculate total for series F for current timeindex
+				$(EstselectionF).each(function ()	{
+					EsttotalF=EsttotalF+this[dvc.timeIndex][0];
+					
+				});
+				
+				//combined total for the current time period from both series. For selected age group e.g. 0-5
+				total=totalM+totalF;
+				Esttotal=EsttotalM+EsttotalF;
+				overallTotal=(dvc.data.ons.sums.series2[dvc.timeIndex])+(dvc.data.ons.sums.series1[dvc.timeIndex])
+				EstoverallTotal=(dvc.data.ons.sums.series2[dvc.outlineIndex])+(dvc.data.ons.sums.series1[dvc.outlineIndex])
+				
+				perOfTot=total/overallTotal;
+				EstperOfTot=Esttotal/EstoverallTotal;
+				perM=totalM/total;
+				EstperM=EsttotalM/Esttotal;
+				perF=totalF/total;
+				EstperF=EsttotalF/Esttotal;
+				
+					////console.log("perM :"+perM+"  perF: "+perF)
+				////console.log(total);
+				var combSeries=[];
+						
+				//and a combined time series for the aggregated cells
+				for( var i = 0; i < dvc.timeLength; i++)
+				{
+				var seriesTotal=0;
+				for (var j=0;j<selectionM.length;j++)
+				{
+					seriesTotal=seriesTotal+parseFloat(selectionM[j][i])+parseFloat(selectionF[j][i]);
+				}
+				  combSeries.push(seriesTotal); 
+				}
+	
+				var EstcombSeries=[];
+						
+				//and a combined time series for the aggregated cells
+				for( var i = 0; i < dvc.timeLength; i++)
+				{
+				var EstseriesTotal=0;
+				for (var j=0;j<EstselectionM.length;j++)
+				{
+					EstseriesTotal=EstseriesTotal+parseFloat(EstselectionM[j][i])+parseFloat(EstselectionF[j][i]);
+				}
+				  combSeries.push(EstseriesTotal); 
+				}
+	
+		
+	
+				var myFormat=d3.format("0,000");
+				var myPercent = d3.format(".1%");
+				
+				
+				var roundedTotal= Math.round(total/dvc.roundTo)*dvc.roundTo;
+				var EstroundedTotal= Math.round(Esttotal/dvc.roundTo)*dvc.roundTo;
+				
+				var roundedTotalM= Math.round(totalM/dvc.roundTo)*dvc.roundTo;
+				var EstroundedTotalM= Math.round(EsttotalM/dvc.roundTo)*dvc.roundTo;
+				
+				var roundedTotalF= Math.round(totalF/dvc.roundTo)*dvc.roundTo;
+				var EstroundedTotalF= Math.round(EsttotalF/dvc.roundTo)*dvc.roundTo;
+				
+				//build up a string for text on page
+				age= dvc.data.ons.dimension.index[loopSt]+" to "+dvc.data.ons.dimension.index[loopEnd]
+				
+				//Values = myFormat(roundedTotalM)+" males<span>fe</span>"+ "<br>" +myFormat(roundedTotalF)+" females" 
+				myTotalM = myFormat(roundedTotalM)
+				EstmyTotalM = myFormat(EstroundedTotalM)
+				
+				myTotalF = myFormat(roundedTotalF)
+				EstmyTotalF = myFormat(EstroundedTotalF)
+				
+				var myDiffM = myPercent((EstroundedTotalM-roundedTotalM)/roundedTotalM)
+				var myDiffF = myPercent((EstroundedTotalF-roundedTotalF)/roundedTotalF)
+				var myDiffTotal = myPercent((EstroundedTotal-roundedTotal)/roundedTotal)
+			
+				//Percent = myPercent(perM)+ "<br>" +myPercent(perF)
+				
+				malesPer = myPercent(perM)
+				EstmalesPer = myPercent(EstperM)
+				femalesPer = myPercent(perF)
+				EstfemalesPer = myPercent(EstperF)
+				
+				combinedTot=myFormat(roundedTotal)
+				combinedTotText = "Total "+age+" year olds (official)"
+				combinedPer = myPercent(perOfTot)+" percent of total population (official) "
+				EstcombinedTot=myFormat(EstroundedTotal)
+				EstcombinedTotText = "Total "+age+" year olds (SPD V2.0)"
+				EstcombinedPer= myPercent(EstperOfTot)+" percent of total population (SPD V2.0) "
+				
+				dataArray=[ perM*100, perF*100]
+				EstdataArray=[ EstperM*100, EstperF*100]
+				
+			}	else if(int1 != null) { 	
+				//just a single selection
+				var malesAgeTimeNum=dvc.data.ons.value[0][int1][dvc.outlineIndex][0];
+				var EstmalesAgeTimeNum=dvc.data.ons.value[0][int1][dvc.timeIndex][0];
+				
+				var femalesAgeTimeNum=dvc.data.ons.value[1][int1][dvc.outlineIndex][0];
+				var EstfemalesAgeTimeNum=dvc.data.ons.value[1][int1][dvc.timeIndex][0];
+				
+				var malesAgeTimeNumRound=Math.round((dvc.data.ons.value[0][int1][dvc.outlineIndex][0])/dvc.roundTo)*dvc.roundTo;
+				var EstmalesAgeTimeNumRound=Math.round((dvc.data.ons.value[0][int1][dvc.timeIndex][0])/dvc.roundTo)*dvc.roundTo;
+				
+				var femalesAgeTimeNumRound=Math.round((dvc.data.ons.value[1][int1][dvc.outlineIndex][0])/dvc.roundTo)*dvc.roundTo;
+				var EstfemalesAgeTimeNumRound=Math.round((dvc.data.ons.value[1][int1][dvc.timeIndex][0])/dvc.roundTo)*dvc.roundTo;
+				
+				if(malesAgeTimeNum+femalesAgeTimeNum==0){
+					var permalesAgeTimeNum = 0;
+					var perfemalesAgeTimeNum = 0;
+				} else {
+					var permalesAgeTimeNum = malesAgeTimeNum/(malesAgeTimeNum+femalesAgeTimeNum);
+					var perfemalesAgeTimeNum = femalesAgeTimeNum/(malesAgeTimeNum+femalesAgeTimeNum);
+				}
+				
+				if(EstmalesAgeTimeNum+EstfemalesAgeTimeNum==0){
+					var EstpermalesAgeTimeNum = 0;
+					var EstperfemalesAgeTimeNum = 0;
+				} else {
+					var EstpermalesAgeTimeNum = EstmalesAgeTimeNum/(EstmalesAgeTimeNum+EstfemalesAgeTimeNum);
+					var EstperfemalesAgeTimeNum = EstfemalesAgeTimeNum/(EstmalesAgeTimeNum+EstfemalesAgeTimeNum);
+				}
+				
+				var myTotal=(dvc.data.ons.sums.series2[dvc.timeIndex])+(dvc.data.ons.sums.series1[dvc.timeIndex]);
+				var EstmyTotal=(dvc.data.ons.sums.series2[dvc.outlineIndex])+(dvc.data.ons.sums.series1[dvc.outlineIndex]);
+				
+				var myAgeTotal=Math.round(((dvc.data.ons.value[0][int1][dvc.outlineIndex][0])+(dvc.data.ons.value[1][int1][dvc.outlineIndex][0]))/dvc.roundTo)*dvc.roundTo;
+				var EstmyAgeTotal=Math.round(((dvc.data.ons.value[0][int1][dvc.timeIndex][0])+(dvc.data.ons.value[1][int1][dvc.timeIndex][0]))/dvc.roundTo)*dvc.roundTo;
+				var myPerAgeTotal=myAgeTotal/myTotal;
+				var EstmyPerAgeTotal=EstmyAgeTotal/EstmyTotal;
+				
+				var myFormat=d3.format("0,000");
+				var myPercent = d3.format(".1%");
+				
+				age =dvc.data.ons.dimension.index[int1]
+				
+				//Values = myFormat(malesAgeTimeNumRound)+" males<span>fe</span>"+ "<br>" +myFormat(femalesAgeTimeNumRound)+" females"
+				myTotalM = myFormat(malesAgeTimeNumRound)
+				EstmyTotalM = myFormat(EstmalesAgeTimeNumRound)
+				myTotalF = myFormat(femalesAgeTimeNumRound)
+				EstmyTotalF = myFormat(EstfemalesAgeTimeNumRound)
+				diffM = ((EstmalesAgeTimeNumRound-malesAgeTimeNumRound)/malesAgeTimeNumRound);
+				diffF = ((EstfemalesAgeTimeNumRound-femalesAgeTimeNumRound)/femalesAgeTimeNumRound);
+				
+				var myDiffM = myPercent(diffM)
+				var myDiffF = myPercent(diffF)
+				
+				//Percent =myPercent(permalesAgeTimeNum)+ "<br>" +myPercent(perfemalesAgeTimeNum)
+				malesPer = myPercent(permalesAgeTimeNum)
+				EstmalesPer = myPercent(EstpermalesAgeTimeNum)
+				femalesPer = myPercent(perfemalesAgeTimeNum)
+				EstfemalesPer = myPercent(EstperfemalesAgeTimeNum)
+				
+				combinedTot=myFormat(myAgeTotal)
+				combinedTotText = "Total "+age+" year olds (official)"
+				combinedPer=myPercent(myPerAgeTotal)+" percent of total population (official) "
+				EstcombinedTot=myFormat(EstmyAgeTotal)
+				EstcombinedTotText = "Total "+age+" year olds (SPD V2.0)"
+				EstcombinedPer=myPercent(EstmyPerAgeTotal)+" percent of total population (SPD V2.0)"
+				
+				
+				dataArray=[ permalesAgeTimeNum*100, perfemalesAgeTimeNum*100]				
+				EstdataArray=[ EstpermalesAgeTimeNum*100, EstperfemalesAgeTimeNum*100]
+				
+				//full series for series 1 and series 2:
+				//dvc.data.series1[int1];
+				//dvc.data.series2[int1];
+			} else {
+				
+				var myFormat=d3.format("0,000");
+				var myTotalM=myFormat(Math.round((dvc.data.ons.sums.series2[dvc.timeIndex])/dvc.roundTo)*dvc.roundTo);
+				var myTotalF=myFormat(Math.round((dvc.data.ons.sums.series1[dvc.timeIndex])/dvc.roundTo)*dvc.roundTo);
+				
+				var EstmyTotalM=myFormat(Math.round((dvc.data.ons.sums.series2[dvc.outlineIndex])/dvc.roundTo)*dvc.roundTo);
+				var EstmyTotalF=myFormat(Math.round((dvc.data.ons.sums.series1[dvc.outlineIndex])/dvc.roundTo)*dvc.roundTo);
+				
+				var myFormatPer=d3.format(".1%");
+				
+				var myDiffM = myFormatPer((dvc.data.ons.sums.series2[dvc.outlineIndex]-dvc.data.ons.sums.series2[dvc.timeIndex])/dvc.data.ons.sums.series2[dvc.outlineIndex])
+				var myDiffF = myFormatPer((dvc.data.ons.sums.series1[dvc.outlineIndex]-dvc.data.ons.sums.series1[dvc.timeIndex])/dvc.data.ons.sums.series1[dvc.outlineIndex])
+				
+				var myPerM=(dvc.data.ons.sums.series2[dvc.timeIndex]/((dvc.data.ons.sums.series2[dvc.timeIndex])+(dvc.data.ons.sums.series1[dvc.timeIndex])));
+				var myPerF=(dvc.data.ons.sums.series1[dvc.timeIndex]/((dvc.data.ons.sums.series2[dvc.timeIndex])+(dvc.data.ons.sums.series1[dvc.timeIndex])));
+				
+				var EstmyPerM=(dvc.data.ons.sums.series2[dvc.outlineIndex]/((dvc.data.ons.sums.series2[dvc.outlineIndex])+(dvc.data.ons.sums.series1[dvc.outlineIndex])));
+				var EstmyPerF=(dvc.data.ons.sums.series1[dvc.outlineIndex]/((dvc.data.ons.sums.series2[dvc.outlineIndex])+(dvc.data.ons.sums.series1[dvc.outlineIndex])));
+				
+				age="0 to 90+";
+			
+				combinedTot = "";
+				combinedTotText = "";
+				combinedPer = "";
+				combined ="";
+				EstcombinedTot = "";
+				EstcombinedTotText = "";
+				EstcombinedPer = "";
+				Estcomined = "";
+				
+				
+				var malesPer = myFormatPer(myPerM)
+				var femalesPer = myFormatPer(myPerF)
+				
+				var EstmalesPer = myFormatPer(EstmyPerM)
+				var EstfemalesPer = myFormatPer(EstmyPerF)
+				
+				dataArray = [ myPerM*100 , myPerF*100 ];
+				EstdataArray = [ EstmyPerM*100 , EstmyPerF*100 ];
+			}
+			
+			width = graphic.width()*0.45;
+			var MFscale = d3.scale.linear().domain([0,100]).range([0,width])
+			var EstMFscale = d3.scale.linear().domain([0,100]).range([0,width])			
+			
+			//update bar values
+			d3.select("#bar0").attr("width", MFscale(dataArray[0]));
+			d3.select("#bar1").attr("width", MFscale(dataArray[1])).attr("x", MFscale(dataArray[0]))
+			d3.select("#Estbar0").attr("width", EstMFscale(EstdataArray[0]));
+			d3.select("#Estbar1").attr("width", EstMFscale(EstdataArray[1])).attr("x", EstMFscale(EstdataArray[0]))
+			
+			//update text values in panel
+			d3.select("#age").text("Age "+age);
+			d3.select("#infoValuesM").text(myTotalM);
+			d3.select("#EstinfoValuesM").text(EstmyTotalM);
+			
+			d3.select("#infoValuesF").text(myTotalF);
+			d3.select("#EstinfoValuesF").text(EstmyTotalF);
+			
+			d3.select("#diffM").text(myDiffM);
+			d3.select("#diffF").text(myDiffF);
+			
+			d3.select("#infoPercentM").text(malesPer);
+			d3.select("#EstinfoPercentM").text(EstmalesPer);
+			d3.select("#infoPercentF").text(femalesPer);	
+			d3.select("#EstinfoPercentF").text(EstfemalesPer);
+			
+			d3.select("#combinedTotText").text(combinedTotText);
+			d3.select("#combinedTotal").text(combinedTot);
+			
+			d3.select("#combinedPer").text(combinedPer);
+			
+			d3.select("#EstcombinedTotText").text(EstcombinedTotText);
+			d3.select("#EstcombinedTotal").text(EstcombinedTot);
+			
+			d3.select("#EstcombinedPer").text(EstcombinedPer);
+			}
+		
+		function clearValues()
+		{
+			var myFormat=d3.format("0,000");
+			var myPercent=d3.format(".1%");
+			
+			var myTotalM=myFormat(Math.round((dvc.data.ons.sums.series2[dvc.timeIndex])/dvc.roundTo)*dvc.roundTo);
+			var EstmyTotalM=myFormat(Math.round((dvc.data.ons.sums.series2[dvc.outlineIndex])/dvc.roundTo)*dvc.roundTo);
+			
+			var myTotalF=myFormat(Math.round((dvc.data.ons.sums.series1[dvc.timeIndex])/dvc.roundTo)*dvc.roundTo);
+			var EstmyTotalF=myFormat(Math.round((dvc.data.ons.sums.series1[dvc.outlineIndex])/dvc.roundTo)*dvc.roundTo);
+			
+			var myDiffM = myPercent((dvc.data.ons.sums.series2[dvc.outlineIndex]-dvc.data.ons.sums.series2[dvc.timeIndex])/dvc.data.ons.sums.series2[dvc.outlineIndex])
+			var myDiffF = myPercent((dvc.data.ons.sums.series1[dvc.outlineIndex]-dvc.data.ons.sums.series1[dvc.timeIndex])/dvc.data.ons.sums.series1[dvc.outlineIndex])
+				
+			var myPerM=(dvc.data.ons.sums.series2[dvc.timeIndex]/(dvc.data.ons.sums.series2[dvc.timeIndex]+dvc.data.ons.sums.series1[dvc.timeIndex]))
+			var EstmyPerM=(dvc.data.ons.sums.series2[dvc.outlineIndex]/(dvc.data.ons.sums.series2[dvc.outlineIndex]+dvc.data.ons.sums.series1[dvc.outlineIndex]))
+			var myPerF=(dvc.data.ons.sums.series1[dvc.timeIndex]/(dvc.data.ons.sums.series2[dvc.timeIndex]+dvc.data.ons.sums.series1[dvc.timeIndex]))
+			var EstmyPerF=(dvc.data.ons.sums.series1[dvc.outlineIndex]/(dvc.data.ons.sums.series2[dvc.outlineIndex]+dvc.data.ons.sums.series1[dvc.outlineIndex]))
+						
+			d3.select("#age").text("Age 0 to 90+")
+			d3.select("#infoValuesM").text(myTotalM);
+			d3.select("#EstinfoValuesM").text(EstmyTotalM);
+			d3.select("#infoValuesF").text(myTotalF);
+			d3.select("#EstinfoValuesF").text(EstmyTotalF);
+			
+			d3.select("#diffM").text(myDiffM);
+			d3.select("#diffF").text(myDiffF);
+			
+			d3.select("#infoPercentM").text(myPercent(myPerM));
+			d3.select("#EstinfoPercentM").text(myPercent(EstmyPerM));
+			d3.select("#infoPercentF").text(myPercent(myPerF));
+			d3.select("#EstinfoPercentF").text(myPercent(EstmyPerF));
+						
+			d3.select("#bar0_").attr("width", myPerM*100);
+			d3.select("#Estbar0_").attr("width", EstmyPerM*100);
+			d3.select("#bar1_").attr("width", myPerF*100).attr("x", myPerM*100);
+			d3.select("#Estbar1_").attr("width", EstmyPerF*100).attr("x", EstmyPerM*100);
+			
+			d3.select("#combinedTotal").text("")
+			d3.select("#combinedTotText").text("")
+			d3.select("#combinedPer").text("")
+			d3.select("#EstcombinedTotal").text("")
+			d3.select("#EstcombinedTotText").text("")
+			d3.select("#EstcombinedPer").text("")
+			
+		}
+	
+		function updateHash() {
+	   			window.location.hash = encodeURI(dvc.selectedYear + "/" + dvc.defaultSelections + "/" + dvc.selStart + "/" + dvc.selEnd );
+		}
+	
+	
+		//check whether browser can cope with svg	
+		if (Modernizr.svg) {
+
+				var url = decodeURI(window.location.hash);
+				params = url.split("/");
+
+			//load config
+			d3.json("config.json", function(json)	{
+						dvc.settings=json;
+				
+						dvc.timeLength=dvc.settings.config.timeSeries;
+						dvc.timeMin=dvc.settings.config.timeMinMax[0];
+						dvc.timeMax=dvc.settings.config.timeMinMax[1];
+
+				if(url != "") {
+						
+						//if parameters set in url
+						dvc.selectedYear=params[0].split("#")[1];
+						dvc.defaultSelections=params[1]
+						if (params[2]=='null'){
+							dvc.selStart =	null;	
+						} else {
+							dvc.selStart =	params[2];
+						}
+						if (params[3] =='null'){
+							dvc.selEnd = null;
+						} else {
+							dvc.selEnd =	params[3]; 
+						}
+						
+				} else { 
+						//if no parameters set in url	
+						dvc.selectedYear="2016";
+						dvc.defaultSelections=dvc.settings.config.defaultVars;
+						dvc.selStart =	null;
+						dvc.selEnd 	= null; 
+				}
+									
+						//load the first data file as specified in the config
+						d3.json(dvc.selectedYear+"data/"+dvc.settings.config.vars[dvc.defaultSelections][0], function(data) {
+							dvc.data=data;//assign the first file's data to our dvc data...
+							
+							//use pym to create iframed chart dependent on specified variables
+							pymChild = new pym.Child({ renderCallback: drawGraphic});
+
+						});//end first dataset load					
+						
+			})//end config load	
+
+		} else {
+			 //use pym to create iframe containing fallback image (which is set as default)
+			 pymChild = new pym.Child();
+			if (pymChild) {
+		        pymChild.sendHeight();
+		    }
+		}
+    </script>
+</body>
+</html>
