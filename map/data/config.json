@@ -1,0 +1,13 @@
+{"ons":{
+"varlabel": ["Lower quartile house price"],
+"varcolour": ["#a6611a","#dfc27d","#dadada","#80cdc1","#018571"],
+"varname": ["M_All","M_0to14","M_15to24","M_25to49","M_50to64","M_65plus","F_All","F_0to14","F_15to24","F_25to49","F_50to64","F_65plus","A_All","A_0to14","A_15to24","A_25to49","A_50to64","A_65plus"],
+"varload": ["M_All","M_0to14","M_15to24","M_25to49","M_50to64","M_65plus","F_All","F_0to14","F_15to24","F_25to49","F_50to64","F_65plus","A_All","A_0to14","A_15to24","A_25to49","A_50to64","A_65plus"],
+"varunit":["%"],
+"varprefix":["","","",""],
+"breaks":[[-35.0,-8.5, -3.8, 3.8, 8.5, 35]],
+"average":[5000000],
+"averagelabel":"",
+"centre":[50.8625574, -1.2463228],
+"zoom":12
+}}

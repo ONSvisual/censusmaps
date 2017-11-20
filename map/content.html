@@ -1,0 +1,666 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+     <link href='https://fonts.googleapis.com/css?family=Open+Sans:400,300,600|Open+Sans+Condensed:300' rel='stylesheet' type='text/css'>
+    <title>Census small map</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="css/styles.css" media="screen">
+    <link rel="stylesheet" href="css/leaflet.css" />
+    <link rel="stylesheet" href="css/globalStyle.css" />
+
+    <style>
+		body {
+			font-family: 'Open Sans', sans-serif;
+			color:#666;
+			min-height:1000px;
+		}
+        .container{
+			background-color:white;
+			max-width:800px;
+			margin-left:0px!important;
+			margin-right:0px!important;
+        }
+		.row{
+			margin-left:0px;
+			margin-right:0px;
+		}
+		.inputOption{
+			height:35px;
+			margin-top:0px;
+			padding-left:10px;
+			background-color:white!important;
+		}
+
+
+		input:-webkit-autofill, textarea:-webkit-autofill, select:-webkit-autofill {
+			-webkit-box-shadow: 0 0 0px 1000px white inset;
+		}
+		/* Button group styles */
+		   .btn-form {
+            display: -webkit-inline-box;
+            display: -ms-inline-flexbox;
+            display: inline-flex;
+            font-family: 'Open Sans',Arial,sans-serif;
+            -webkit-font-smoothing: antialiased;
+            font-weight: 600;
+            font-size: 16px;
+            margin-bottom: 10px;
+          }
+
+          .form-group {
+            display: -webkit-box;
+            display: -ms-flexbox;
+            display: flex;
+            cursor: pointer;
+            height: 40px;
+            box-sizing: border-box;
+            text-align: center;
+          }
+
+          .form-group:last-child {
+            border-right: solid 1px #A6A8AB;
+          }
+
+          /* Primary button group */
+
+          .label-primary {
+            padding: 8px 16px;
+            cursor: pointer;
+            color: #333;
+            background: #F9F9F9;
+            width: 112px;
+            border-top: solid 1px #A6A8AB;
+            border-left: solid 1px #A6A8AB;
+            border-bottom: solid 1px #A6A8AB;
+          }
+
+          .label-primary:hover {
+            background: #003C57;
+            color: #fff;
+            border-color: #003C57;
+          }
+
+          .radio-primary {
+            display: none;
+          }
+
+          .radio-primary:checked + .label-primary {
+            background: #206095;
+            color: #fff;
+            border-color: #206095;
+            cursor: default;
+          }
+
+          [role="radio"]:focus {
+            outline: 3px solid #FF9933 !important;
+            outline-offset: -1px;
+            background-color:#003C57;
+            z-index: 1;
+          }
+
+          /* Secondary button group */
+
+          .label-secondary {
+            padding: 8px 16px;
+            cursor: pointer;
+            color: #333;
+            background: #F9F9F9;
+            width: 112px;
+            border-top: solid 1px #A6A8AB;
+            border-left: solid 1px #A6A8AB;
+            border-bottom: solid 1px #A6A8AB;
+          }
+
+          .label-secondary:hover {
+            background: #45565E;
+            color: #fff;
+            border-color: #45565E;
+          }
+
+          .radio-secondary:checked + .label-secondary {
+            background: #5F7682;
+            color: #fff;
+            border-color: #5F7682;
+            cursor: default;
+          }
+
+          .radio-secondary {
+            display: none;
+          }
+
+		 /* Full width */
+
+          .btn-form-fullwidth {
+            display: -webkit-inline-box;
+            display: -ms-inline-flexbox;
+            display: inline-flex;
+            font-family: 'Open Sans',Arial,sans-serif;
+            -webkit-font-smoothing: antialiased;
+            font-weight: 600;
+            font-size: 16px;
+            margin-bottom: 32px;
+            width: 100%;
+          }
+
+          .form-group-fullwidth {
+            display: -webkit-box;
+            display: -ms-flexbox;
+            display: flex;
+            cursor: pointer;
+            height: 40px;
+            box-sizing: border-box;
+            text-align: center;
+            width: 100%;
+          }
+
+          .label-secondary-fullwidth:last-child {
+            border-right: solid 1px #A6A8AB;
+          }
+		  
+		  .label-primary-fullwidth:last-child {
+            border-right: solid 1px #A6A8AB;
+          }
+		  
+		  
+
+          .label-primary-fullwidth {
+            padding: 8px 16px;
+            cursor: pointer;
+            color: #333;
+            background: #F9F9F9;
+            border-top: solid 1px #A6A8AB;
+            border-left: solid 1px #A6A8AB;
+            border-bottom: solid 1px #A6A8AB;
+            width: 100%;
+          }
+
+          .label-primary-fullwidth:hover {
+            background: #003C57;
+            color: #fff;
+            border-color: #003C57;
+            width: 100%;
+          }
+
+          .radio-primary-fullwidth:checked + .label-primary-fullwidth {
+            background: #206095;
+            color: #fff;
+            border-color: #206095;
+            cursor: default;
+            width: 100%;
+          }
+
+          .radio-primary-fullwidth {
+            display: none;
+          }
+
+            .label-secondary-fullwidth {
+            padding: 8px 16px;
+            cursor: pointer;
+            color: #333;
+            background: #F9F9F9;
+            border-top: solid 1px #A6A8AB;
+            border-left: solid 1px #A6A8AB;
+            border-bottom: solid 1px #A6A8AB;
+            width: 100%;
+          }
+
+          .label-secondary-fullwidth:hover {
+            background: #45565E;
+            color: #fff;
+            border-color: #45565E;
+            width: 100%;
+          }
+
+          .radio-secondary-fullwidth:checked + .label-secondary-fullwidth {
+            background: #5F7682;
+            color: #fff;
+            border-color: #5F7682;
+            cursor: default;
+            width: 100%;
+          }
+
+          .radio-secondary-fullwidth {
+            display: none;
+          }
+
+
+
+		@media (max-width: 700px) {
+
+ 		}
+
+		#mapWrapper {
+			padding:0px 0px 0px 0px;
+		}
+
+
+
+		.measureHeading {
+			font-size:16px;
+			margin-bottom:4px;
+			margin-top:10px;
+			text-align:center;
+		}
+
+		#spd,
+		#sape,
+		#percentage {
+			color:#007F7F;
+			font-weight:bold;
+			font-size:26px;
+			text-align:center;
+		}
+		.result {
+			background-color:#e7e7e7;
+			padding:0px 0px 0px 0px;
+			margin-bottom:20px;
+		}
+		.ValueUnderline {
+			height:9px;
+			background-color:#007F7F;
+			margin-top:10px;
+			margin-bottom:0px;
+		}
+
+        #pcGo:hover {
+            cursor:pointer;
+            curser:hand;
+        }
+		.useLocation {
+			cursor:pointer;
+			cursor:hand;
+			background-color:#007F7F!important;
+		}
+
+		/*map css*/
+		  #map{
+			height:500px;
+		  }
+
+
+
+
+
+		  #map{
+			background:white;
+			width:100%;
+		  }
+
+		  #keydiv {
+			z-index:4;
+			position:absolute;
+			height:300px;
+			right:0px;
+			background:rgba(255,255,255,0.75);
+		  }
+		  #mapTitleText {
+			z-index:5;
+			position:absolute;
+			background:rgba(255,255,255,.75);
+		  }
+
+		  #areadrop {
+			z-index:5;
+			position:absolute;
+			width:100%;
+			height:72px;
+			right:0px;
+			background:rgba(255,255,255,.75);
+		  }
+
+			#key path {
+			  display: none;
+
+			}
+
+			#key line {
+			  stroke: #666;
+			  shape-rendering: crispEdges;
+			}
+
+			#key rect {
+			  stroke: #666;
+			  stroke-width:1px;
+			  shape-rendering: crispEdges;
+			}
+
+			#key g {
+				font-size:11px;
+				fill:#666;
+			}
+
+
+			#areaname {
+				text-align:center;
+				height:55px;
+			}
+
+
+
+			#placeNameDisplay{
+				font-size:14px!important;
+			}
+			#placeNameName{
+				font-size:16px!important;
+			}
+
+			.measureHeading{
+				font-size:14px!important;
+				height:25px;
+			}
+
+
+
+			@media (min-width: 768px) {
+			#areanm
+			{
+				font-size:20px;
+				color:#666;
+				min-width:1%;
+				font-family:open_sanssemibold, Arial, Helvetica, sans-serif;
+				text-align:center;
+			}
+
+
+			}
+
+			@media (max-width: 767px) {
+			#areanm
+			{
+
+				font-size:16px;
+				color:#666;
+				font-family:open_sanssemibold, Arial, Helvetica, sans-serif;
+
+			}
+			}
+
+
+			@media (min-width: 665px) {
+
+			#keydiv {
+
+				top:0px;
+				width:90px;
+				height:300px;
+				padding-bottom:20px;
+			}
+
+
+			#key {
+				width:140px;
+			}
+			}
+
+			@media (max-width: 664px) {
+
+			#keydiv {
+
+				width:100%;
+				height:60px;
+				top: 490px;
+			}
+
+			#key {
+				width:100%;
+			}
+			}
+
+
+			#menu {
+				z-index:1001;
+			}
+
+
+			.picaarticle {
+				font-size:18px;
+
+			}
+
+
+			#mapPane {
+				padding-left:0px!important;
+				padding-right:0px!important;
+			}
+			#areadrop{
+				display:none!important;
+			}
+			
+			      .dropdown {
+        width: 100%;
+		max-width:360px;
+        height: 40px;
+        border-style: solid;
+        border-width: 1px;
+        font-size: 16px;
+        font-family: 'Open Sans', Arial, sans-serif;
+        -webkit-font-smoothing: antialiased;
+        border-color: #414042;
+        padding: 0 16px;
+        color: #414042;
+        background-color: #FFF;
+      }
+
+      .dropdown:focus {
+        outline: 2px solid #FF9933 !important;
+        outline-offset: 0;
+      }
+
+      .dropdown-thin {
+        width: 304px;
+        height: 32px;
+        border-style: solid;
+        border-width: 1px;
+        font-size: 16px;
+        font-family: 'Open Sans', Arial, sans-serif;
+        -webkit-font-smoothing: antialiased;
+        border-color: #414042;
+        padding: 0 16px;
+        color: #414042;
+        background-color: #FFF;
+      }
+
+      .dropdown-thin:focus {
+        outline: 2px solid #FF9933 !important;
+        outline-offset: 0;
+      }
+
+      .form-text {
+        font-size: 16px;
+        line-height: 24px;
+        padding: 0 0 8px 0;
+        margin: 0;
+        font-family: 'Open Sans',Helvetica,Arial,sans-serif;
+        -webkit-font-smoothing: antialiased;
+        color: #414042;
+      }
+
+
+</style>
+</head>
+
+<script src="https://code.jquery.com/jquery-git2.min.js"></script>
+    <form class="btn-form-fullwidth" role="radiogroup">
+    <div class="form-group-fullwidth" role="radio" tabindex="0">
+      <input id="allpeople" class="radio-primary-fullwidth" type="radio" name="genderbutton" value="A_" aria-checked="true" checked>
+      <label class="label-primary-fullwidth" for="allpeople">All</label>
+    </div>
+    <div class="form-group-fullwidth" role="radio" tabindex="2">
+      <input id="male" class="radio-primary-fullwidth" type="radio" name="genderbutton" value="M_" aria-checked="false">
+      <label class="label-primary-fullwidth" for="male">Male</label>
+    </div>
+    <div class="form-group-fullwidth" role="radio" tabindex="3">
+      <input id="female" class="radio-primary-fullwidth" type="radio" name="genderbutton" value="F_" aria-checked="false">
+      <label class="label-primary-fullwidth" for="female">Female</label>
+    </div>
+  </form>
+
+
+    <form class="btn-group btn-form-fullwidth hidden-xs" role="radiogroup">
+    <div class="form-group-fullwidth" role="radio" tabindex="4">
+      <input id="allages" class="radio-secondary-fullwidth" type="radio" name="agebutton_d" value="All" aria-checked="true" checked>
+      <label class="label-secondary-fullwidth" for="allages">All ages</label>
+    </div>
+    <div class="form-group-fullwidth" role="radio" tabindex="5">
+      <input id="0to14" class="radio-secondary-fullwidth" type="radio" name="agebutton_d" value="0to14" aria-checked="false">
+      <label class="label-secondary-fullwidth" for="0to14">Age 0-14</label>
+    </div>
+    <div class="form-group-fullwidth" role="radio" tabindex="6">
+      <input id="15to24" class="radio-secondary-fullwidth" type="radio" name="agebutton_d" value="15to24" aria-checked="false">
+      <label class="label-secondary-fullwidth" for="15to24">Age 15-24</label>
+    </div>
+	<div class="form-group-fullwidth" role="radio" tabindex="7">
+      <input id="25to49" class="radio-secondary-fullwidth" type="radio" name="agebutton_d" value="25to49" aria-checked="false">
+      <label class="label-secondary-fullwidth" for="25to49">Age 25-49</label>
+    </div>
+	<div class="form-group-fullwidth" role="radio" tabindex="8">
+      <input id="50to64" class="radio-secondary-fullwidth" type="radio" name="agebutton_d" value="50to64" aria-checked="false">
+      <label class="label-secondary-fullwidth" for="50to64">Age 50-64</label>
+    </div>
+	<div class="form-group-fullwidth" role="radio" tabindex="9">
+      <input id="65plus" class="radio-secondary-fullwidth" type="radio" name="agebutton_d" value="65plus" aria-checked="false">
+      <label class="label-secondary-fullwidth" for="65plus">Age 65+</label>
+    </div>
+  </form>
+
+	<select class="dropdown visible-xs">
+      <option selected value="allages">All ages</option>
+      <option value="0to14">Age 0-14</option>
+      <option value="15to24">Age 15-24</option>
+      <option value="25to49">Age 25-49</option>
+      <option value="50to64">Age 50-64</option>
+      <option value="65plus">Age65+</option>
+  	</select>
+
+
+  <p id="placeNameDisplay" style="font-size:18px; margin-bottom:0px; margin-top:10px; display:none;"><span id="placeNameName" style="font-size:24px; font-weight:bolder; color:#007F7F;"></span></p>
+
+			<div class="result col-xs-4 col-sm-4" style="border-right-style:solid;border-right-width:3px; border-right-color:white; border-left-style:solid;border-left-width:3px; border-left-color:white;"><p class="measureHeading">SPD estimate</p>
+                    <div id="spd" class="">-</div>
+                    <div class="ValueUnderline"></div>
+            </div>
+            <div class="result col-xs-4 col-sm-4" style="border-right-style:solid;border-right-width:3px; border-right-color:white; border-left-style:solid;border-left-width:3px; border-left-color:white;"><p class="measureHeading" style="padding-left:5px; padding-right:5px; ">Mid-year estimate</p>
+                	<div id="sape" class="">-</div>
+                    <div class="ValueUnderline"></div>
+            </div>
+            <div class="result col-xs-4 col-sm-4" style="border-right-style:solid;border-right-width:3px; border-right-color:white; border-left-style:solid;border-left-width:3px; border-left-color:white;"><p class="measureHeading">% difference</p>
+                	<div id="percentage" class="">-</div>
+                    <div class="ValueUnderline"></div>
+            </div>
+
+<div class="container" style="padding:0px 0px 0px 0px;">
+<div id="toolView" style="display:block; opacity:0;">
+
+	<div id="inputWrapper" style="margin-bottom:0px;">
+
+     <div class="menu">
+                <div class="hidden-sm hidden-lg col-xs-hidden" id="mobileheader">
+                </div>
+            </div><!-- end mobileheader -->
+
+            	<div id="navigation" class="row">
+                        <div class="col-sm-12 hidden-xs" id="pills"></div>
+                </div> <!-- end navigation -->
+            </div>
+
+    <div class="row">
+
+        <form id="pcForm">
+            <input style="float:left; width:200px;" id="pcText" class="picaarticle inputOption" type="text" tabindex="1" value="PO15 5RR" placeholder="insert your postcode">
+        </form>
+
+        <div id="pcGo" style="float:left; height:35px; width:50px; margin-right:20px; color:white; background-color:#007F7F; margin-top:0px; padding-top:7px; text-align:center;"> Go </div>
+
+
+        <div class="inputOption useLocation" style="float:left; padding-top:7px; background-color:#007F7F; color:white;">Or use your location <img src="images/locationIcon.png" style="width:11px; height:19px; float:right; margin-left:10px; margin-right:10px;"></div>
+
+        <p id="pcError" style="width:100%; clear:both; padding-top:7px;" class="picaarticle"></p>
+    </div>
+    </div>
+
+   <!-- <div style="height:1px; background-color:#dadada; width:100%; margin-top:10px; margin-bottom:10px;"><!--top bounding line--</div>-->
+
+    <div class="row">
+
+
+
+        <div id="mapWrapper" style="opacity:1; height:320px; clear:both; margin-bottom:20px;">
+                        <div id="graphic">Loading graphic...</div>
+                           <div class="row" id="navigation">
+
+
+
+                           </div>
+
+
+
+
+
+                           <div class="row" style="position: relative;">
+                                  <div id="mapPane" class="col-sm-12 col-xs-12">
+                                    <div id="map">
+
+                                    </div>
+                                  </div>
+                              <div class="row" id="areadrop">
+                                  <div class="col-sm-9 col-xs-12" id="areaname">
+                                        <div id="areanm"></div>
+                                        <div id="areainfo"></div>
+                                  </div>
+
+                              </div>
+                              <div id="mapTitleText"></div>
+                              <div id="keydiv"></div>
+
+                            </div><!-- end row -->
+
+        </div>
+
+
+    </div>
+
+    </div><!--ends toolView-->
+
+</div><!--end container-->
+
+
+
+<!-- Constant libraries / frameworks -->
+    <script src="https://cdn.ons.gov.uk/vendor/jquery/2.1.4/jquery.min.js"></script>
+    <script src="js/bootstrap.min.js"></script>
+    <script src="https://cdn.ons.gov.uk/vendor/d3/3.5.17/d3.min.js" charset="utf-8"></script>
+    <script src="https://cdn.ons.gov.uk/vendor/pym/0.4.2/pym.min.js" charset="utf-8"></script>
+    <script type="text/javascript" src="js/chosen.jquery.js"></script>
+ 	  <script type="text/javascript" src="js/modernizr.custom.56904.js"></script>
+    <script type="text/javascript" src="js/topojson.js" charset="utf-8"></script>
+    <script type="text/javascript" src="js/queue.js" charset="utf-8"></script>
+    <script type="text/javascript" src="js/ss.js"></script>
+    <script type="text/javascript" src="js/colorbrewer.js" charset="utf-8"></script>
+    <script type="text/javascript" src="js/leaflet.js"></script>
+    <script type="text/javascript" src="js/leaflet-pip.js"></script>
+	  <script type="text/javascript" src="js/script.js"></script>
+    <script type="text/javascript" src="js/script_map.js"></script>
+
+    <script>
+
+		  /* Analytics */
+
+		  /* Google */
+		  var _gaq = _gaq || [];
+		  _gaq.push(['_setAccount', 'UA-37894017-1']);
+		  _gaq.push(['_trackPageview']);
+
+
+		  (function() {
+			var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+			ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'https://www') + '.google-analytics.com/ga.js';
+			var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+		  })();
+
+
+    </script>
+
+
+  </body>
+</html>
